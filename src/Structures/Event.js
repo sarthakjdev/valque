@@ -1,5 +1,6 @@
 const Discord = require("discord.js");
 const Client = require("./Client.js");
+
 /**
  * @template {keyof Discord.ClientEvents} K
  * @param {Client} client

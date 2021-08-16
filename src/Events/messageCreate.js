@@ -11,5 +11,14 @@ module.exports = new Event("messageCreate", (client, message) => {
 
   if (!command) return message.reply(`${args[0]} is not a valid command . `);
 
+  if (!["BOTH", "TEXT"].includes(command.type))
+  return message.reply(
+    "That command is only available via slash command"
+    );
+
+  const permission = message.member.permissions.has(command.permission , true);
+  
+  if (!permission) return message.reply(`You dont have permission \`${command.permission}\`to use this command`)
+
   command.run(message, args, client);
 });
