@@ -76,6 +76,7 @@ this.on('ready', async()=>{
          */
         const event = require(`../Events/${file}`);
         console.log(`Event ${event.event} loaded`);
+        // this.on(event.event, event.run);
         this.on(event.event, event.run.bind(null, this));
       });
 
