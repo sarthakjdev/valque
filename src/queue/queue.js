@@ -33,20 +33,21 @@ const queueEmbed = new Discord.MessageEmbed()
   .setTitle("Click on the queue button to start a queue search.")
   .setAuthor("Que", `${thumbnail}`)
   .setColor("#ffffff")
-  .setDescription("Initiate searching for a queue by clicking on queue button below. It will take a few minutes and as soon as 10 players will be in a queue , click the updated button and do the further proceeding later on  ")
+  .setDescription(
+    "Initiate searching for a queue by clicking on queue button below. It will take a few minutes and as soon as 10 players will be in a queue , click the updated button and do the further proceeding later on  "
+  )
   .setThumbnail(`${thumbnail}`);
 
-
 const updatesQueueEmbed = new Discord.MessageEmbed()
-.setTitle("DON'T PRESS CANCEL, IT WILL CANCEL MATCH-MAKING.")
-.setAuthor("Que", `${thumbnail}`)
-.setColor("#ffffff")
-.setDescription("`Please WAit!! Searching for enough players to join.`")
-.setThumbnail(`${thumbnail}`);
+  .setTitle("DON'T PRESS CANCEL, IT WILL CANCEL MATCH-MAKING.")
+  .setAuthor("Que", `${thumbnail}`)
+  .setColor("#ffffff")
+  .setDescription("`Please WAit!! Searching for enough players to join.`")
+  .setThumbnail(`${thumbnail}`);
 
 module.exports = {
   queueButtonsRow,
   queueEmbed,
   UpdatedButtonRow,
-  updatesQueueEmbed
+  updatesQueueEmbed,
 };

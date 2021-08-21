@@ -7,6 +7,8 @@ const client = new Client();
 const dotEnv = require("dotenv");
 dotEnv.config({ path: ".env" });
 
+const logging = require('./src/queue/privatemessage.js'); 
+
 client.start(process.env.TOKEN);
 
 const guild = client.guilds.cache.get(process.env.GuildId) ; 
