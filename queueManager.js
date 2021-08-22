@@ -3,7 +3,7 @@ const { Collection } = require('discord.js')
 class QueueManager {
     constructor(opts) {
         this.client = opts.client
-        this.queueSize = 3
+        this.queueSize = 1
         this.queue = new Collection()
     }
 
