@@ -1,21 +1,19 @@
-"use strict";
+require('./util/config')
+const { Intents, Options } = require('discord.js')
+const Bot = require('./bot')
+const errorPrint = require('./util/errorPrint')
 
-const Client = require("./src/Structures/Client.js");
+const bot = new Bot({
+    shards: 'auto',
+    restGlobalRateLimit: 50,
+    makeCache: Options.cacheWithLimits({
+        MessageManager: 1,
+    }),
+    intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
+})
 
-const client = new Client();
+process.on('unhandledRejection', (error) => {
+    errorPrint(error, { description: 'Unhandled error' })
+})
 
-const dotEnv = require("dotenv");
-dotEnv.config({ path: ".env" });
-
-const logging = require('./src/queue/privatemessage.js'); 
-
-client.start(process.env.TOKEN);
-
-const guild = client.guilds.cache.get(process.env.GuildId) ; 
-function createChannel (channelId) {
-  const channel = guild.channels.cache.get(`${channelId}`)
-    return channel ; 
-}
-module.exports = {guild , createChannel , client} ; 
-
-
+bot.build().then()
