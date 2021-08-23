@@ -1,10 +1,7 @@
 const { MessageActionRow, MessageButton, GuildChannelManager, Collection } = require('discord.js')
 const startMsgComponents = require('../embeds&buttons/start')
 const queueMsgComponents = require('../embeds&buttons/queueEmbed')
-const joinMsgComponents = require('../embeds&buttons/joingame')
-const checkinMsgComponents = require('../embeds&buttons/checkin')
-const playersMsgComponents = require('../embeds&buttons/playersSelection')
-const MapMsgComponents = require('../embeds&buttons/mapSelection')
+
 
 const {createChannels, gamesettingsInviteLink} = require('../embeds&buttons/createChannels.js')
 
@@ -16,8 +13,8 @@ module.exports = {
             embeds: [startMsgComponents.startPlayingembed],
             components: [startMsgComponents.startPlayingRow],
         })
-        createChannels(interaction);
-        console.log(gamesettingsInviteLink)
+        
+      
 
         const filterPlayingButton = (buttonInteraction) => buttonInteraction.customId === 'startPlaying'
         const playingCollector = interaction.channel.createMessageComponentCollector({
