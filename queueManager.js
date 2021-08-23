@@ -1,5 +1,5 @@
 const { Collection } = require('discord.js')
-
+const joingameMsg = require('./embeds&buttons/joingame.js')
 class QueueManager {
     constructor(opts) {
         this.client = opts.client
@@ -25,7 +25,7 @@ class QueueManager {
             this.queueCopy = this.queue.clone()
             this.queue = new Collection()
             await Promise.all(this.queueCopy.map(async (interaction) => {
-                await interaction.editReply(`you're matched`)
+                await interaction.editReply({embeds:[joingameMsg.joingameembed], components:[joingameMsg.joingameRow]})
             }))
         }
     }
