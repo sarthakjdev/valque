@@ -2,7 +2,7 @@ const { MessageActionRow, MessageButton, MessageEmbed } = require('discord.js')
 
 const thumbnail = process.env.Thumbnail
 
-const {gamesettingsInviteLink, checkinInviteUrl} = require('../embeds&buttons/createChannels.js')
+
 
 // import inviteLink from '../commands/queue'
 const joingameButton = new MessageButton().setLabel('Join-Game').setStyle('LINK').setURL(`https://google.com`)

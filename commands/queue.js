@@ -3,7 +3,6 @@ const startMsgComponents = require('../embeds&buttons/start')
 const queueMsgComponents = require('../embeds&buttons/queueEmbed')
 
 
-const {createChannels, gamesettingsInviteLink} = require('../embeds&buttons/createChannels.js')
 
 module.exports = {
     name: 'queue',
@@ -13,9 +12,6 @@ module.exports = {
             embeds: [startMsgComponents.startPlayingembed],
             components: [startMsgComponents.startPlayingRow],
         })
-        
-      
-
         const filterPlayingButton = (buttonInteraction) => buttonInteraction.customId === 'startPlaying'
         const playingCollector = interaction.channel.createMessageComponentCollector({
             componentType: 'BUTTON',
