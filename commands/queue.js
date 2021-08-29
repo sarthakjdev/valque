@@ -2,8 +2,6 @@ const { MessageActionRow, MessageButton, GuildChannelManager, Collection } = req
 const startMsgComponents = require('../embeds&buttons/start')
 const queueMsgComponents = require('../embeds&buttons/queueEmbed')
 
-
-
 module.exports = {
     name: 'queue',
     exec: async (interaction) => {
@@ -22,7 +20,6 @@ module.exports = {
                 await playingButtonInteraction.reply({ content: `You're already queued`, ephemeral: true })
             } else {
                 await playingButtonInteraction.reply({ components: [queueMsgComponents.queuePlayingRow], embeds: [queueMsgComponents.queuePlayingembed], ephemeral: true })
-                
             }
         })
 
