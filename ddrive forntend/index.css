@@ -1,0 +1,122 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    overflow-x: hidden;
+    background-color:black ;
+}
+
+div.container {
+   height: 70vh;
+   max-width: 45rem;
+   display: flex;
+   flex-direction: column;
+   position: absolute;
+   top: 0;
+   bottom: 0;
+   right: 0;
+   left: 0;
+   border-radius: 0.7rem ;
+   margin: auto 3rem ;
+   border: 0.2px solid grey;
+}
+
+div.header{
+    display: flex;
+    flex-direction: row;
+    height: 2.8rem;
+    align-items: center;
+    border-radius: 0.7rem 0.7rem 0 0  ;
+    justify-content: flex-end;
+    background-color: #2d323a;
+}
+
+ button.upload , button.delete {
+    color: white;
+    border: 0.2px solid grey;
+    background-color:#2d323a ;
+    border-radius: 0.5rem;
+    height: 1.8rem;
+    width: 7rem;
+    margin-right: 1rem;
+}
+
+  button:hover {
+      background-color:#3a3e46 ;
+  }
+
+div.folder{
+    height: 2rem;
+    display: flex ; 
+    flex-direction: row;
+    align-items: center;
+    justify-content:space-evenly;
+    padding:auto 1rem auto 0.5rem  ; 
+    background-color: red;
+    border-bottom: 0.8px solid grey ;
+     background-color: transparent;
+}
+
+div.folder:hover, div.files:hover {
+   background-color:#2d323a;
+}
+
+div.files {
+   height: 2rem;
+   display: flex ; 
+   flex-direction: row;
+   align-items: center;
+   justify-content:space-evenly;
+   padding:auto 1rem auto 0.5rem  ; 
+   border-bottom: 0.8px solid grey ;
+   background-color: transparent;
+}
+
+a.name-of-file , a.name-of-folder {
+    text-decoration: none;
+    color: white;
+    width: 40%;
+    text-align: left;
+    position: relative;
+    right: 1.3rem; 
+    font-size: 14px ;
+}
+
+p.time-stamp {
+    width: 30%;
+    color: white;
+    text-align: center;
+    font-size: 14px ;
+}
+
+i {
+    position: relative;
+    right: 0.9rem;
+    width: 2%;
+    z-index: 5555;
+}
+
+i img {
+    z-index: 555; 
+}
+
+@media screen and (min-width:920px){
+    div.container{
+        margin: auto;
+    }
+}
+
+@media screen and (min-width:768px){
+    a.name-of-file , a.name-of-folder{
+        position: relative;
+        right: 3.5rem;
+    }
+    i {
+        position: relative;
+        right: 2rem;
+    }
+}
+

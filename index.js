@@ -9,7 +9,7 @@ const bot = new Bot({
     makeCache: Options.cacheWithLimits({
         MessageManager: 1,
     }),
-    intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
+    intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_VOICE_STATES],
 })
 
 process.on('unhandledRejection', (error) => {
