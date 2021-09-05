@@ -1,6 +1,6 @@
 const { Permissions, MessageButton } = require('discord.js')
 const pWaitFor = require('../util/pwaitfor')
-const Components = require('../embedsNButtons/components')
+const Components = require('./components')
 
 const CATEGORY_NAME = 'Valorant'
 const CHAT_CHANNEL_NAME = 'Chat Here'

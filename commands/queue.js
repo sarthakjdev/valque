@@ -2,7 +2,7 @@ const {
     MessageActionRow,
     MessageButton,
 } = require('discord.js')
-const Components = require('../embedsNButtons/components')
+const Components = require('../struct/components')
 
 const startMsgComponents = Components.startPlaying()
 const queueComponents = Components.getQueue()
