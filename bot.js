@@ -3,16 +3,14 @@ const { Client, Collection } = require('discord.js')
 const { readdirSync } = require('fs')
 const path = require('path')
 const commandsDefinition = require('./commandsDefinition')
-const QueueManager = require('./queueManager.js')
+const QueueManager = require('./struct/queueManager')
+
 module.exports = class extends Client {
     constructor(opts) {
         super(opts)
         this.commands = new Collection()
         this.slashCommands = new Collection()
-        this.queueManager = new QueueManager({client:this})
-        this.inviteLink = process.env.BOT_INVITE_LINK
-        this.prefix = process.env.PREFIX
-        this.supportServer = process.env.SUPPORT_SERVER_INVITE_LINK
+        this.queueManager = new QueueManager({ client: this })
         this.config = process.env
     }
 
@@ -20,7 +18,6 @@ module.exports = class extends Client {
         this.loadSlashCommands()
         this.loadEventListeners()
         await this.login(process.env.TOKEN)
-        // await this.application.commands.set(commandsDefinition)
         await (await this.guilds.fetch(process.env.HOME_GUILD_ID)).commands.set(commandsDefinition) // Enable this when testing
         await this.application.fetch()
         await this.application.commands.set([])

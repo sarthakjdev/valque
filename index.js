@@ -1,4 +1,4 @@
-require('./util/config')
+require('dotenv').config()
 const { Intents, Options } = require('discord.js')
 const Bot = require('./bot')
 const errorPrint = require('./util/errorPrint')

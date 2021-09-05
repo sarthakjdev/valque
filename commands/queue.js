@@ -1,13 +1,18 @@
-const { MessageActionRow, MessageButton, GuildChannelManager, Collection } = require('discord.js')
-const startMsgComponents = require('../embeds&buttons/start')
-const queueMsgComponents = require('../embeds&buttons/queueEmbed')
+const {
+    MessageActionRow,
+    MessageButton,
+} = require('discord.js')
+const Components = require('../embedsNButtons/components')
+
+const startMsgComponents = Components.startPlaying()
+const queueComponents = Components.getQueue()
 
 module.exports = {
     name: 'queue',
     exec: async (interaction) => {
         // Send Initial reply
         await interaction.reply({
-            embeds: [startMsgComponents.startPlayingembed],
+            embeds: [startMsgComponents.startPlayingEmbed],
             components: [startMsgComponents.startPlayingRow],
         })
         const filterPlayingButton = (buttonInteraction) => buttonInteraction.customId === 'startPlaying'
@@ -15,11 +20,19 @@ module.exports = {
             componentType: 'BUTTON',
             filter: filterPlayingButton,
         })
+
         playingCollector.on('collect', async (playingButtonInteraction) => {
             if (interaction.client.queueManager.isQueued(playingButtonInteraction.user.id)) {
-                await playingButtonInteraction.reply({ content: `You're already queued`, ephemeral: true })
+                await playingButtonInteraction.reply({
+                    content: `You're already queued`,
+                    ephemeral: true,
+                })
             } else {
-                await playingButtonInteraction.reply({ components: [queueMsgComponents.queuePlayingRow], embeds: [queueMsgComponents.queuePlayingembed], ephemeral: true })
+                await playingButtonInteraction.reply({
+                    components: [queueComponents.queuePlayingRow],
+                    embeds: [queueComponents.queuePlayingEmbed],
+                    ephemeral: true,
+                })
             }
         })
 
@@ -30,7 +43,10 @@ module.exports = {
             filter: filterQueueButton,
         })
         startQueueButtonInteraction.on('collect', async (buttonInteraction) => {
-            const startQueueDisabled = new MessageButton().setCustomId('startQueue').setLabel('Start Queue').setStyle('PRIMARY')
+            const startQueueDisabled = new MessageButton()
+                .setCustomId('startQueue')
+                .setLabel('Start')
+                .setStyle('PRIMARY')
                 .setDisabled(true)
             const rowDisabled = new MessageActionRow().addComponents(startQueueDisabled)
             await buttonInteraction.update({ components: [rowDisabled] })
