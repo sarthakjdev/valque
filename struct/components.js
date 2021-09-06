@@ -1,7 +1,9 @@
 const { MessageActionRow, MessageButton, MessageEmbed } = require('discord.js')
 const _ = require('lodash')
 
-const { THUMBNAIL } = process.env
+const {
+    THUMBNAIL, MATCH_FOUND_IMAGE, SELECT_MAP, SELECT_SIDE,
+} = process.env
 
 class Components {
     static getJoinGame(url) {
@@ -12,8 +14,9 @@ class Components {
         const joinGameEmbed = new MessageEmbed()
             .setAuthor('QUE Bot', `${THUMBNAIL}`)
             .setColor('WHITE')
-            .setDescription('``MATCH FOUND ! `` \n NOW YOU CAN JOIN THE GAME BY CLICK ON THE BELOW . ')
+            .setDescription(' Now, You can join the game by clicking on the button below. ')
             .setThumbnail(`${THUMBNAIL}`)
+            .setImage(MATCH_FOUND_IMAGE)
 
         return {
             joinGameRow,
@@ -92,12 +95,30 @@ class Components {
         }
     }
 
-    static genMapBoard(availableMaps) {
+    static genMapBoard(availableMaps, playerTurn) {
         // TODO : If availableMps.length = 2 -> change embed and button color and text to 'pick' from 'ban'
-        const mapsButton = availableMaps.map((map) => new MessageButton().setCustomId(map).setLabel(map).setStyle('DANGER'))
-        const mapBatch = _.chunk(mapsButton, 3).map((batch) => new MessageActionRow().addComponents(batch))
+        let buttonColor = 'DANGER'
+        let image = SELECT_MAP
+        let description = 'Ban maps one by one by clicking on buttons below.'
+        if (availableMaps[0] === 'Attacker') {
+            description = 'Now, choose the side'
+            image = SELECT_SIDE
+        }
+
+        if (availableMaps.length === 2 && availableMaps[0] !== 'Attacker') {
+            description = 'Now PICK one to choose the final map.'
+            buttonColor = 'SUCCESS'
+        }
         // TODO : Update embed
-        const embed = new MessageEmbed().setDescription('TODO')
+        const embed = new MessageEmbed()
+            .setAuthor('QUE Bot', `${THUMBNAIL}`)
+            .setDescription(`${description}  Its your turn : ${playerTurn ? playerTurn.mention : ''} `)
+            .setThumbnail(`${THUMBNAIL}`)
+            .setColor('WHITE')
+            .setImage(`${image}`)
+
+        const mapsButton = availableMaps.map((map) => new MessageButton().setCustomId(map).setLabel(map).setStyle(buttonColor))
+        const mapBatch = _.chunk(mapsButton, 3).map((batch) => new MessageActionRow().addComponents(batch))
 
         return {
             embeds: [embed],
