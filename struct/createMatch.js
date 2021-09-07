@@ -143,6 +143,8 @@ const createMatch = async (playerButtons) => {
 
     const mapSelectionCollector = mapSelectionMsg.createMessageComponentCollector({ componentType: 'BUTTON' })
     mapSelectionCollector.on('collect', async (buttonInteraction) => {
+        let actiontaken = 'banned'
+        if (maps.length === 2 && ['Attacker', 'Defender'].includes(buttonInteraction.customId)) actiontaken = 'Selected'
         if (buttonInteraction.user.id !== turn.id) {
             return buttonInteraction.reply({ content: `You're not allowed to click button`, ephemeral: true })
         }
@@ -152,14 +154,14 @@ const createMatch = async (playerButtons) => {
                 defender = cap2
             }
             turn = cap2
-            await buttonInteraction.reply({ content: `You have banned ${buttonInteraction.customId}`, ephemeral: true })
+            await buttonInteraction.reply({ content: `You have ${actiontaken} ${buttonInteraction.customId}`, ephemeral: true })
         } else {
             if (buttonInteraction.customId === 'Attacker') {
                 attacker = cap2
                 defender = cap1
             }
             turn = cap1
-            await buttonInteraction.reply({ content: `You have banned ${buttonInteraction.customId}`, ephemeral: true })
+            await buttonInteraction.reply({ content: `You have ${actiontaken} ${buttonInteraction.customId}`, ephemeral: true })
         }
         maps = maps.filter((map) => map !== buttonInteraction.customId)
         let updatedGameSettingMsg = Components.genMapBoard(maps, turn)
@@ -167,6 +169,9 @@ const createMatch = async (playerButtons) => {
         if (maps.length === 1) {
             selectedMap = buttonInteraction.customId
             updatedGameSettingMsg = Components.genMapBoard(['Attacker', 'Defender'], turn)
+        }
+        if (maps.length === 1 && ['Attacker', 'Defender'].includes(buttonInteraction.customId)) {
+            updatedGameSettingMsg = Components.genMapBoard([], null, buttonInteraction.customId)
         }
 
         return mapSelectionMsg.edit(updatedGameSettingMsg)

@@ -1,8 +1,9 @@
 const { MessageActionRow, MessageButton, MessageEmbed } = require('discord.js')
+const { constant } = require('lodash')
 const _ = require('lodash')
 
 const {
-    THUMBNAIL, MATCH_FOUND_IMAGE, SELECT_MAP, SELECT_SIDE,
+    THUMBNAIL, MATCH_FOUND_IMAGE, SELECT_MAP, SELECT_SIDE, ATTACKER, DEFENDER,
 } = process.env
 
 class Components {
@@ -95,24 +96,34 @@ class Components {
         }
     }
 
-    static genMapBoard(availableMaps, playerTurn) {
+    static genMapBoard(availableMaps, playerTurn, i) {
         // TODO : If availableMps.length = 2 -> change embed and button color and text to 'pick' from 'ban'
         let buttonColor = 'DANGER'
         let image = SELECT_MAP
-        let description = 'Ban maps one by one by clicking on buttons below.'
+        const turn = `Its your turn : ${playerTurn ? playerTurn.mention : ''}`
+        let description = `Ban maps one by one by clicking on buttons below. ${turn} `
         if (availableMaps[0] === 'Attacker') {
-            description = 'Now, choose the side'
+            description = `Now, choose the side ${turn}`
             image = SELECT_SIDE
         }
-
         if (availableMaps.length === 2 && availableMaps[0] !== 'Attacker') {
-            description = 'Now PICK one to choose the final map.'
+            description = `Now PICK one to choose the final map. ${turn}`
             buttonColor = 'SUCCESS'
+        }
+        if (!availableMaps.length) {
+            if (i === 'Attacker') {
+                description = 'You have choosen Attacker side'
+                image = ATTACKER
+            }
+            if (i === 'Defender') {
+                description = 'You have choosen Defender side'
+                image = DEFENDER
+            }
         }
         // TODO : Update embed
         const embed = new MessageEmbed()
             .setAuthor('QUE Bot', `${THUMBNAIL}`)
-            .setDescription(`${description}  Its your turn : ${playerTurn ? playerTurn.mention : ''} `)
+            .setDescription(`${description} `)
             .setThumbnail(`${THUMBNAIL}`)
             .setColor('WHITE')
             .setImage(`${image}`)
