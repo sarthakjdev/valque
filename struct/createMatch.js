@@ -144,7 +144,7 @@ const createMatch = async (playerButtons) => {
     const mapSelectionCollector = mapSelectionMsg.createMessageComponentCollector({ componentType: 'BUTTON' })
     mapSelectionCollector.on('collect', async (buttonInteraction) => {
         let actiontaken = 'banned'
-        if (maps.length === 2 && ['Attacker', 'Defender'].includes(buttonInteraction.customId)) actiontaken = 'Selected'
+        if (maps.length === 2 && !['Attacker', 'Defender'].includes(buttonInteraction.customId)) actiontaken = 'Selected'
         if (buttonInteraction.user.id !== turn.id) {
             return buttonInteraction.reply({ content: `You're not allowed to click button`, ephemeral: true })
         }
