@@ -139,12 +139,20 @@ const createMatch = async (playerButtons) => {
     let defender
 
     const mapSelectionMsgComponents = Components.genMapBoard(maps, turn)
+    console.log(mapSelectionMsgComponents)
     const mapSelectionMsg = await gameSettingsChannel.send(mapSelectionMsgComponents)
 
     const mapSelectionCollector = mapSelectionMsg.createMessageComponentCollector({ componentType: 'BUTTON' })
     mapSelectionCollector.on('collect', async (buttonInteraction) => {
         let actiontaken = 'banned'
-        if (maps.length === 2 && !['Attacker', 'Defender'].includes(buttonInteraction.customId)) actiontaken = 'Selected'
+        if (maps.length === 2) actiontaken = 'Selected'
+        if (maps.length === 2 && ['Bind', ' Heaven ', ' Split ', ' Ascent ', ' Icebox ', ' Breeze '].includes(buttonInteraction.customId)) {
+            const selectedMapComponents = Components.mapComponents(maps, buttonInteraction.customId)
+            console.log(buttonInteraction.customId)
+            console.log(selectedMapComponents)
+            await gameSettingsChannel.send(selectedMapComponents)
+        }
+        if (maps.length === 1 && ['Attacker', 'Defender'].includes(buttonInteraction.customId)) actiontaken = 'Selected'
         if (buttonInteraction.user.id !== turn.id) {
             return buttonInteraction.reply({ content: `You're not allowed to click button`, ephemeral: true })
         }

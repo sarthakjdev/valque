@@ -3,7 +3,7 @@ const { constant } = require('lodash')
 const _ = require('lodash')
 
 const {
-    THUMBNAIL, MATCH_FOUND_IMAGE, SELECT_MAP, SELECT_SIDE, ATTACKER, DEFENDER,
+    THUMBNAIL, MATCH_FOUND_IMAGE, SELECT_MAP, SELECT_SIDE, ATTACKER, DEFENDER, ASCENT, BIND, BREEZE, ICEBOX, SPLIT, HAVEN,
 } = process.env
 
 class Components {
@@ -100,6 +100,7 @@ class Components {
         // TODO : If availableMps.length = 2 -> change embed and button color and text to 'pick' from 'ban'
         let buttonColor = 'DANGER'
         let image = SELECT_MAP
+
         const turn = `Its your turn : ${playerTurn ? playerTurn.mention : ''}`
         let description = `Ban maps one by one by clicking on buttons below. ${turn} `
         if (availableMaps[0] === 'Attacker') {
@@ -107,16 +108,17 @@ class Components {
             image = SELECT_SIDE
         }
         if (availableMaps.length === 2 && availableMaps[0] !== 'Attacker') {
-            description = `Now PICK one to choose the final map. ${turn}`
+            description = ` Now PICK one to choose the final map. ${turn}`
             buttonColor = 'SUCCESS'
         }
+
         if (!availableMaps.length) {
             if (i === 'Attacker') {
-                description = 'You have choosen Attacker side'
+                description = ` You have choosen Attacker side `
                 image = ATTACKER
             }
             if (i === 'Defender') {
-                description = 'You have choosen Defender side'
+                description = ` You have choosen Defender side `
                 image = DEFENDER
             }
         }
@@ -134,6 +136,39 @@ class Components {
         return {
             embeds: [embed],
             components: mapBatch,
+        }
+    }
+
+    static mapComponents(availableMaps, i) {
+        let selectedMapImage = 'notSelected'
+        if (`${i}` === 'Bind') {
+            selectedMapImage = BIND
+        }
+        if (`${i}` === 'Ascent') {
+            selectedMapImage = ASCENT
+        }
+        if (`${i}` === 'Split') {
+            selectedMapImage = SPLIT
+        }
+        if (`${i}` === 'Icebox') {
+            selectedMapImage = ICEBOX
+        }
+        if (`${i}` === 'Breeze') {
+            selectedMapImage = BREEZE
+        }
+        if (`${i}` === 'Heaven') {
+            selectedMapImage = HAVEN
+        }
+
+        const selectedMapComponents = new MessageEmbed()
+            .setAuthor('QUE Bot', `${THUMBNAIL}`)
+            .setDescription(`You have selected ${i} for this match.`)
+            .setThumbnail(`${THUMBNAIL}`)
+            .setColor('WHITE')
+            .setImage(`${selectedMapImage}`)
+
+        return {
+            embeds: [selectedMapComponents],
         }
     }
 }
