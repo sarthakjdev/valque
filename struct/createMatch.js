@@ -133,7 +133,9 @@ const createMatch = async (playerButtons) => {
         if (player.voice) await player.voice.setChannel(team2VoiceChannel)
     }))
 
-    let maps = ['Bind', ' Heaven ', ' Split ', ' Ascent ', ' Icebox ', ' Breeze ']
+    await checkIn.delete()
+
+    let maps = ['Bind', 'Heaven', 'Split', 'Ascent', 'Icebox', 'Breeze']
     let selectedMap
     let attacker
     let defender
@@ -146,7 +148,7 @@ const createMatch = async (playerButtons) => {
     mapSelectionCollector.on('collect', async (buttonInteraction) => {
         let actiontaken = 'banned'
         if (maps.length === 2) actiontaken = 'Selected'
-        if (maps.length === 2 && ['Bind', ' Heaven ', ' Split ', ' Ascent ', ' Icebox ', ' Breeze '].includes(buttonInteraction.customId)) {
+        if (maps.length === 2 && maps.includes(buttonInteraction.customId)) {
             const selectedMapComponents = Components.mapComponents(maps, buttonInteraction.customId)
             await gameSettingsChannel.send(selectedMapComponents)
         }
