@@ -3,7 +3,7 @@ const { constant } = require('lodash')
 const _ = require('lodash')
 
 const {
-    THUMBNAIL, MATCH_FOUND_IMAGE, SELECT_MAP, SELECT_SIDE, ATTACKER, DEFENDER, ASCENT, BIND, BREEZE, ICEBOX, SPLIT, HAVEN,
+    THUMBNAIL, MATCH_FOUND_IMAGE, SELECT_MAP, SELECT_SIDE, ATTACKER, DEFENDER, ASCENT, BIND, BREEZE, ICEBOX, SPLIT, HAVEN, MAP_SELECTED
 } = process.env
 
 class Components {
@@ -114,11 +114,11 @@ class Components {
 
         if (!availableMaps.length) {
             if (i === 'Attacker') {
-                description = ` You have choosen Attacker side `
+                description = ` **You have choosen Attacker side** `
                 image = ATTACKER
             }
             if (i === 'Defender') {
-                description = ` You have choosen Defender side `
+                description = ` **You have choosen Defender side** `
                 image = DEFENDER
             }
         }
@@ -140,32 +140,32 @@ class Components {
     }
 
     static mapComponents(availableMaps, i) {
-        // let selectedMapImage = 'notSelected'
-        // if (i === 'Bind') {
+        let selectedMapImage = MAP_SELECTED
+        // if (`${i}` === 'Bind') {
         //     selectedMapImage = BIND
         // }
-        // if (i === 'Ascent') {
+        // if (`${i}` === 'Ascent') {
         //     selectedMapImage = ASCENT
         // }
-        // if (i === 'Split') {
+        // if (`${i}` === 'Split') {
         //     selectedMapImage = SPLIT
         // }
-        // if (i === 'Icebox') {
+        // if (`${i}` === 'Icebox') {
         //     selectedMapImage = ICEBOX
         // }
-        // if (i === 'Breeze') {
+        // if (`${i}` === 'Breeze') {
         //     selectedMapImage = BREEZE
         // }
-        // if (i === 'Heaven') {
+        // if (`${i}` === 'Heaven') {
         //     selectedMapImage = HAVEN
         // }
 
         const selectedMapComponents = new MessageEmbed()
             .setAuthor('QUE Bot', `${THUMBNAIL}`)
-            .setDescription(`You have selected ${i} for this match.`)
+            .setDescription(`**You have selected ${i} for this match.**`)
             .setThumbnail(`${THUMBNAIL}`)
             .setColor('WHITE')
-            // .setImage(`${selectedMapImage}`)
+            .setImage(`${selectedMapImage}`)
 
         return {
             embeds: [selectedMapComponents],
