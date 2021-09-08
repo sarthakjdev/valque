@@ -148,8 +148,6 @@ const createMatch = async (playerButtons) => {
         if (maps.length === 2) actiontaken = 'Selected'
         if (maps.length === 2 && ['Bind', ' Heaven ', ' Split ', ' Ascent ', ' Icebox ', ' Breeze '].includes(buttonInteraction.customId)) {
             const selectedMapComponents = Components.mapComponents(maps, buttonInteraction.customId)
-            console.log(buttonInteraction.customId)
-            console.log(selectedMapComponents)
             await gameSettingsChannel.send(selectedMapComponents)
         }
         if (maps.length === 1 && ['Attacker', 'Defender'].includes(buttonInteraction.customId)) actiontaken = 'Selected'

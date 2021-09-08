@@ -140,32 +140,32 @@ class Components {
     }
 
     static mapComponents(availableMaps, i) {
-        let selectedMapImage = 'notSelected'
-        if (`${i}` === 'Bind') {
-            selectedMapImage = BIND
-        }
-        if (`${i}` === 'Ascent') {
-            selectedMapImage = ASCENT
-        }
-        if (`${i}` === 'Split') {
-            selectedMapImage = SPLIT
-        }
-        if (`${i}` === 'Icebox') {
-            selectedMapImage = ICEBOX
-        }
-        if (`${i}` === 'Breeze') {
-            selectedMapImage = BREEZE
-        }
-        if (`${i}` === 'Heaven') {
-            selectedMapImage = HAVEN
-        }
+        // let selectedMapImage = 'notSelected'
+        // if (i === 'Bind') {
+        //     selectedMapImage = BIND
+        // }
+        // if (i === 'Ascent') {
+        //     selectedMapImage = ASCENT
+        // }
+        // if (i === 'Split') {
+        //     selectedMapImage = SPLIT
+        // }
+        // if (i === 'Icebox') {
+        //     selectedMapImage = ICEBOX
+        // }
+        // if (i === 'Breeze') {
+        //     selectedMapImage = BREEZE
+        // }
+        // if (i === 'Heaven') {
+        //     selectedMapImage = HAVEN
+        // }
 
         const selectedMapComponents = new MessageEmbed()
             .setAuthor('QUE Bot', `${THUMBNAIL}`)
             .setDescription(`You have selected ${i} for this match.`)
             .setThumbnail(`${THUMBNAIL}`)
             .setColor('WHITE')
-            .setImage(`${selectedMapImage}`)
+            // .setImage(`${selectedMapImage}`)
 
         return {
             embeds: [selectedMapComponents],
