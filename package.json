@@ -3,7 +3,8 @@
   "version": "0.0.1",
   "description": "Discord bot for contest update",
   "main": "index.js.js",
-  "author": "Darshan Patel <lazy14k@gmail.com>",
+  "author": "Sarthak Jain contact.sarthakjain@gmail.com",
+  "contributors": ["Darshan Patel <lazy14k@gmail.com>"],
   "license": "ISC",
   "engines": {
     "node": "16.x"
