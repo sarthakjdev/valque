@@ -140,7 +140,6 @@ class Components {
     }
 
     static mapComponents(availableMaps, selectedMap) {
-        console.log(selectedMap)
         const selectedMapImage = process.env[selectedMap.toUpperCase()]
         const selectedMapComponents = new MessageEmbed()
             .setAuthor('QUE Bot', `${THUMBNAIL}`)

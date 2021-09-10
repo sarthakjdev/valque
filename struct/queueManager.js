@@ -4,7 +4,7 @@ const createMatch = require('./createMatch')
 class QueueManager {
     constructor(opts) {
         this.client = opts.client
-        this.queueSize = 4
+        this.queueSize = 10
         this.queue = new Collection()
     }
 
