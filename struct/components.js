@@ -3,7 +3,7 @@ const { constant } = require('lodash')
 const _ = require('lodash')
 
 const {
-    THUMBNAIL, MATCH_FOUND_IMAGE, SELECT_MAP, SELECT_SIDE, ATTACKER, DEFENDER, ASCENT, BIND, BREEZE, ICEBOX, SPLIT, HAVEN, MAP_SELECTED
+    THUMBNAIL, MATCH_FOUND_IMAGE, SELECT_MAP, SELECT_SIDE, ATTACKER, DEFENDER, ASCENT, BIND, BREEZE, ICEBOX, SPLIT, HAVEN, MAP_SELECTED,
 } = process.env
 
 class Components {
@@ -150,6 +150,21 @@ class Components {
 
         return {
             embeds: [selectedMapComponents],
+        }
+    }
+
+    static endGameComponents() {
+        const endGameComponents = new MessageEmbed()
+            .setAuthor('QUE Bot', `${THUMBNAIL}`)
+            .setDescription(`**Don't click this now ! Press the button below once you ends with your game**`)
+            .setThumbnail(`${THUMBNAIL}`)
+            .setColor('RED')
+        const endGameButton = new MessageButton().setCustomId('End Game').setLabel('End Game').setStyle('DANGER')
+        const endGameActionRow = new MessageActionRow().addComponents(endGameButton)
+
+        return {
+            embeds: [endGameComponents],
+            components:[endGameActionRow],
         }
     }
 }

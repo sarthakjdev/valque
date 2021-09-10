@@ -1,4 +1,5 @@
 const { Permissions, MessageButton } = require('discord.js')
+const pwaitfor = require('../util/pwaitfor')
 const pWaitFor = require('../util/pwaitfor')
 const Components = require('./components')
 
@@ -141,7 +142,6 @@ const createMatch = async (playerButtons) => {
     let defender
 
     const mapSelectionMsgComponents = Components.genMapBoard(maps, turn)
-    console.log(mapSelectionMsgComponents)
     const mapSelectionMsg = await gameSettingsChannel.send(mapSelectionMsgComponents)
 
     const mapSelectionCollector = mapSelectionMsg.createMessageComponentCollector({ componentType: 'BUTTON' })
@@ -183,6 +183,24 @@ const createMatch = async (playerButtons) => {
         }
 
         return mapSelectionMsg.edit(updatedGameSettingMsg)
+    })
+
+    await pWaitFor(() => maps.length === 1)
+
+    const endGameComponents = Components.endGameComponents()
+    const endGameMsg = await gameSettingsChannel.send(endGameComponents)
+
+    const endGameFilter = (buttonInteraction) => buttonInteraction.customId === 'End Game'
+    const endGameCollector = endGameMsg.createMessageComponentCollector({ componentType: 'BUTTON', max: 1, filter: endGameFilter })
+    endGameCollector.on('collect', async (buttonInteraction) => {
+        if (buttonInteraction.user.id === cap1.id || buttonInteraction.user.id === cap2.id) {
+            await gameSettingsChannel.delete()
+            await team1VoiceChannel.delete()
+            await team2VoiceChannel.delete()
+            await category.delete()
+        } else {
+            return buttonInteraction.reply({ content: `You're not allowed to click button`, ephemeral: true })
+        }
     })
 }
 
