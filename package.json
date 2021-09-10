@@ -1,7 +1,7 @@
 {
-  "name": "contest-bot",
+  "name": "que-bot",
   "version": "0.0.1",
-  "description": "Discord bot for contest update",
+  "description": "Discord bot for queuing players.",
   "main": "index.js.js",
   "author": "Sarthak Jain contact.sarthakjain@gmail.com",
   "contributors": ["Darshan Patel <lazy14k@gmail.com>"],
