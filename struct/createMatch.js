@@ -1,5 +1,4 @@
 const { Permissions, MessageButton } = require('discord.js')
-const pwaitfor = require('../util/pwaitfor')
 const pWaitFor = require('../util/pwaitfor')
 const Components = require('./components')
 

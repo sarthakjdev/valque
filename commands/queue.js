@@ -1,7 +1,4 @@
-const {
-    MessageActionRow,
-    MessageButton,
-} = require('discord.js')
+
 const Components = require('../struct/components')
 
 const startMsgComponents = Components.startPlaying()
@@ -43,13 +40,8 @@ module.exports = {
             filter: filterQueueButton,
         })
         startQueueButtonInteraction.on('collect', async (buttonInteraction) => {
-            const startQueueDisabled = new MessageButton()
-                .setCustomId('startQueue')
-                .setLabel('Start')
-                .setStyle('PRIMARY')
-                .setDisabled(true)
-            const rowDisabled = new MessageActionRow().addComponents(startQueueDisabled)
-            await buttonInteraction.update({ components: [rowDisabled] })
+            const searchingQueueComponents = Components.searchingQueue()
+            await buttonInteraction.update(searchingQueueComponents)
             interaction.client.queueManager.addToQueue(buttonInteraction)
         })
     },

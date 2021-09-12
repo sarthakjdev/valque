@@ -3,39 +3,27 @@ const { constant } = require('lodash')
 const _ = require('lodash')
 
 const {
-    THUMBNAIL, MATCH_FOUND_IMAGE, SELECT_MAP, SELECT_SIDE, ATTACKER, DEFENDER, ASCENT, BIND, BREEZE, ICEBOX, SPLIT, HAVEN, MAP_SELECTED,
+    THUMBNAIL, MATCH_FOUND_IMAGE, SELECT_MAP, SELECT_SIDE, ATTACKER, DEFENDER,
 } = process.env
 
 class Components {
-    static getJoinGame(url) {
-        const joinGameButton = new MessageButton().setLabel('Join-Game')
-            .setStyle('LINK')
-            .setURL(`${url}`)
-        const joinGameRow = new MessageActionRow().addComponents(joinGameButton)
-        const joinGameEmbed = new MessageEmbed()
+    static startPlaying() {
+        const startPlayingButton = new MessageButton()
+            .setCustomId('startPlaying')
+            .setLabel('Start Playing')
+            .setStyle('SUCCESS')
+
+        const startPlayingRow = new MessageActionRow()
+            .addComponents(startPlayingButton)
+
+        const startPlayingEmbed = new MessageEmbed()
             .setAuthor('QUE Bot', `${THUMBNAIL}`)
-            .setColor('WHITE')
-            .setDescription(' Now, You can join the game by clicking on the button below. ')
+            .setDescription('Tap on the button below to initiate the queuing process .')
             .setThumbnail(`${THUMBNAIL}`)
-            .setImage(MATCH_FOUND_IMAGE)
 
         return {
-            joinGameRow,
-            joinGameEmbed,
-        }
-    }
-
-    static getCheckInRow(url) {
-        const checkInEmbed = new MessageEmbed().setAuthor('Que Bot', `${THUMBNAIL}`)
-            .setColor('WHITE')
-        const checkInButton = new MessageButton().setStyle('LINK')
-            .setLabel('Check-In')
-            .setURL(`${url}`)
-        const checkInRow = new MessageActionRow().addComponents(checkInButton)
-
-        return {
-            checkInRow,
-            checkInEmbed,
+            startPlayingEmbed,
+            startPlayingRow,
         }
     }
 
@@ -55,23 +43,56 @@ class Components {
         }
     }
 
-    static startPlaying() {
-        const startPlayingButton = new MessageButton()
-            .setCustomId('startPlaying')
-            .setLabel('Start Playing')
-            .setStyle('SUCCESS')
+    static searchingQueue() {
+        const startQueueDisabled = new MessageButton()
+            .setCustomId('startQueue')
+            .setLabel('SEARCHING')
+            .setStyle('PRIMARY')
+            .setDisabled(true)
 
-        const startPlayingRow = new MessageActionRow()
-            .addComponents(startPlayingButton)
-
-        const startPlayingEmbed = new MessageEmbed()
+        const startQueueEmbed = new MessageEmbed()
             .setAuthor('QUE Bot', `${THUMBNAIL}`)
-            .setDescription('Tap on the button below to initiate the queuing process .')
+            .setColor('GREEN')
+            .setDescription('```Waiting for more players to join.```')
             .setThumbnail(`${THUMBNAIL}`)
 
+        const rowDisabled = new MessageActionRow().addComponents(startQueueDisabled)
+
         return {
-            startPlayingEmbed,
-            startPlayingRow,
+            embeds: [startQueueEmbed],
+            components: [rowDisabled],
+        }
+    }
+
+    static getCheckInRow(url) {
+        const checkInEmbed = new MessageEmbed().setAuthor('Que Bot', `${THUMBNAIL}`)
+            .setColor('WHITE')
+        const checkInButton = new MessageButton().setStyle('LINK')
+            .setLabel('Check-In')
+            .setURL(`${url}`)
+        const checkInRow = new MessageActionRow().addComponents(checkInButton)
+
+        return {
+            checkInRow,
+            checkInEmbed,
+        }
+    }
+
+    static getJoinGame(url) {
+        const joinGameButton = new MessageButton().setLabel('Join-Game')
+            .setStyle('LINK')
+            .setURL(`${url}`)
+        const joinGameRow = new MessageActionRow().addComponents(joinGameButton)
+        const joinGameEmbed = new MessageEmbed()
+            .setAuthor('QUE Bot', `${THUMBNAIL}`)
+            .setColor('WHITE')
+            .setDescription(' Now, You can join the game by clicking on the button below. ')
+            .setThumbnail(`${THUMBNAIL}`)
+            .setImage(MATCH_FOUND_IMAGE)
+
+        return {
+            joinGameRow,
+            joinGameEmbed,
         }
     }
 
@@ -164,7 +185,7 @@ class Components {
 
         return {
             embeds: [endGameComponents],
-            components:[endGameActionRow],
+            components: [endGameActionRow],
         }
     }
 }
