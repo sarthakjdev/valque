@@ -1,6 +1,6 @@
 module.exports = [
     {
-        name: 'queue',
+        name: 'que',
         description: 'Initiate the queue process .'
     }
 ]
