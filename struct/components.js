@@ -6,6 +6,7 @@ const {
     THUMBNAIL, MATCH_FOUND_IMAGE, SELECT_MAP, SELECT_SIDE, ATTACKER, DEFENDER,
 } = process.env
 
+// defining all the components here in this class :
 class Components {
     static startPlaying() {
         const startPlayingButton = new MessageButton()
@@ -27,6 +28,7 @@ class Components {
         }
     }
 
+    // component  generated for queue button
     static getQueue() {
         const queuePlayingButton = new MessageButton().setCustomId('startQueue')
             .setLabel('Queue')
@@ -43,6 +45,7 @@ class Components {
         }
     }
 
+    // component  generated for update afetr  queue button is clicked
     static searchingQueue() {
         const startQueueDisabled = new MessageButton()
             .setCustomId('startQueue')
@@ -64,6 +67,7 @@ class Components {
         }
     }
 
+    // components generated for checkin button to be sent
     static getCheckInRow(url) {
         const checkInEmbed = new MessageEmbed().setAuthor('Que Bot', `${THUMBNAIL}`)
             .setColor('WHITE')
@@ -78,6 +82,7 @@ class Components {
         }
     }
 
+    // Componenet for join game link to redirect user to the channe created
     static getJoinGame(url) {
         const joinGameButton = new MessageButton().setLabel('Join-Game')
             .setStyle('LINK')
@@ -96,6 +101,7 @@ class Components {
         }
     }
 
+    // Components generated for team selection
     static genSelectionBoard(cap1, cap2, team1, team2, remainingPlayers, playerTurn) {
         const usersBatch = _.chunk(remainingPlayers, 5)
             .map((batch) => new MessageActionRow().addComponents(batch.map((user) => user.button)))
@@ -117,6 +123,7 @@ class Components {
         }
     }
 
+    // Components generated for map selection embeds
     static genMapBoard(availableMaps, playerTurn, i) {
         // TODO : If availableMps.length = 2 -> change embed and button color and text to 'pick' from 'ban'
         let buttonColor = 'DANGER'
@@ -143,7 +150,6 @@ class Components {
                 image = DEFENDER
             }
         }
-        // TODO : Update embed
         const embed = new MessageEmbed()
             .setAuthor('QUE Bot', `${THUMBNAIL}`)
             .setDescription(`${description} `)
@@ -160,6 +166,7 @@ class Components {
         }
     }
 
+    // Components generated to show the selectd map embed
     static mapComponents(availableMaps, selectedMap) {
         const selectedMapImage = process.env[selectedMap.toUpperCase()]
         const selectedMapComponents = new MessageEmbed()
@@ -174,6 +181,7 @@ class Components {
         }
     }
 
+    // Components generated to send end game embed
     static endGameComponents() {
         const endGameComponents = new MessageEmbed()
             .setAuthor('QUE Bot', `${THUMBNAIL}`)
