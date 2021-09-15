@@ -14,6 +14,12 @@ class QueueManager {
         this.processQueue().then()
     }
 
+    removeFromQueue(interaction) {
+        if (this.queue.has(interaction.user.id)) {
+            this.queue.delete(interaction.user.id)
+        }
+    }
+
     isQueued(userId) {
         this.queue.sweep((interaction) => Date.now() - interaction.createdTimestamp > 900000) // Remove interactions older than 15 minutes because we can't update them
 
