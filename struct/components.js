@@ -1,5 +1,4 @@
 const { MessageActionRow, MessageButton, MessageEmbed } = require('discord.js')
-const { constant } = require('lodash')
 const _ = require('lodash')
 
 const {
@@ -46,7 +45,7 @@ class Components {
     }
 
     // component  generated for update afetr  queue button is clicked
-    static searchingQueue() {
+    static searchingQueue(size) {
         const startQueueDisabled = new MessageButton()
             .setCustomId('startQueue')
             .setLabel('SEARCHING')
@@ -59,9 +58,8 @@ class Components {
         const startQueueEmbed = new MessageEmbed()
             .setAuthor('QUE Bot', `${THUMBNAIL}`)
             .setColor('GREEN')
-            .setDescription('```Waiting for more players to join.```')
+            .setDescription(` *\`${size} Players in queue\`* \n \`Waiting for more players to join\` `)
             .setThumbnail(`${THUMBNAIL}`)
-
         const rowDisabled = new MessageActionRow().addComponents(startQueueDisabled, leaveQueue)
 
         return {
