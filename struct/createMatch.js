@@ -194,7 +194,7 @@ const createMatch = async (playerButtons) => {
             updatedGameSettingMsg = Components.genMapBoard(['Attacker', 'Defender'], turn)
         }
         if (maps.length === 1 && ['Attacker', 'Defender'].includes(buttonInteraction.customId)) {
-            updatedGameSettingMsg = Components.genMapBoard([], null, buttonInteraction.customId)
+            updatedGameSettingMsg = Components.genMapBoard([], null, buttonInteraction, cap1, cap2)
         }
 
         return mapSelectionMsg.edit(updatedGameSettingMsg)
