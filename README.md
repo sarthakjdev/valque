@@ -1,4 +1,4 @@
 # Valque Bot
 
 
-Updated soon .... 
+A discord bot for valorant queuing system in the discord server
